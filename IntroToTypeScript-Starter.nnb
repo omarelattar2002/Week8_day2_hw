@@ -1,0 +1,1782 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "[Intro To TS](#intro)<br>\n&emsp;[JS Built-in Types](#built)<br>\n&emsp;[Declaration](#declare)<br>\n&emsp;[Exercise #1](#ice1)<br>\n&emsp;[Implicit Types](#itype)<br>\n&emsp;[Arrays](#array)<br>\n&emsp;[Exercise #2](#ice2)<br>\n&emsp;[Exercise #3](#ice3)<br>\n&emsp;[Functions](#func)<br>\n&emsp;&emsp;[Return](#return)<br>\n&emsp;&emsp;[Exercise #4](#ice4)<br>\n&emsp;&emsp;[Arrow Functions](#arrow)<br>\n&emsp;&emsp;[Exercise #5](#ice5)<br>\n&emsp;&emsp;[Void](#void)<br>\n&emsp;&emsp;[Exercise #6](#ice6)<br>\n&emsp;[TS Built-in Types](#tstypes)<br>\n&emsp;&emsp;[any](#any)<br>\n&emsp;&emsp;[Exercise #7](#ice7)<br>\n&emsp;&emsp;[Tuple](#tuple)<br>\n&emsp;&emsp;[Exercise #8](#ice8)<br>\n&emsp;&emsp;[Enum](#enum)<br>\n&emsp;&emsp;[Exercise #9](#ice9)<br>\n&emsp;&emsp;[Unknown](#unknown)<br>\n&emsp;&emsp;[Type Guards](#guard)<br>\n&emsp;&emsp;[Exercise #10](#ice10)<br>\n&emsp;&emsp;[never](#never)<br>\n&emsp;[Objects](#obj)<br>\n&emsp;&emsp;[Exercise #11](#ice11)<br>\n&emsp;&emsp;[Type Alias](#type)<br>\n&emsp;&emsp;[Exercise #12](#ice12)<br>\n&emsp;&emsp;[readonly](#readonly)<br>\n&emsp;&emsp;[Optional Chaining](#opt)<br>\n&emsp;&emsp;[Objects with Methods](#objmeth)<br>\n&emsp;&emsp;[Exercise #13](#ice13)<br>\n&emsp;&emsp;[Union Types](#union)<br>\n&emsp;&emsp;[Exercise #14](#ice14)<br>\n&emsp;[as Keyword](#as)<br>\n&emsp;[Intersection Types](#intersec)<br>\n&emsp;[Exercise #15](#ice15)<br>\n&emsp;[Literal Types](#literal)<br>\n&emsp;[Exercise #16](#ice16)<br>\n&emsp;[Non-null assertion operator](#nnao)<br>\n&emsp;[Homework](#hw)<br>\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"intro\"></a>\n# Intro To TypeScript"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "TypeScript was developed in 2012 by Microsoft. As of Early 2023 the most current TypeScript version is 4.9, with 5.0 being in beta. (This notebook uses 4.1) TypeScript is what’s called a superset of JavaScript, meaning it encompasses everything that is JavaScript and it includes even more features.\n\nTypescript’s main feature is that it adds static typing to Vanilla JS.  JavaScript (and python) are called dynamically type languages, this means the data type of the variables isn't determined until runtime.  This is a recipe for disaster in complex applications.  When working with a dynamically typed language the errors don't show up until you try using your program and something goes wrong.  This makes finding and preventing errors a hassle.  Enter TypeScript, with a statically type language (like C++/Java/C#) the datatypes of the variables are declared and known at compile time (or before you actually run the program.)  That means, when you go to compile your code, you will get errors before ever running the program.  This also helps the itellisense (how VSCode or Jupyter Notebook gives you hints on methods and properties) know what options to give.  This makes the programmers life much easier.\n\nWhen you write a TypeScript (.ts) file you must compile that TS code.  The TS code is read by your computer and it compiles the TS code into new JavaScript files (.js).  This is the compilation step that will give you the type checking errors.  Once it is compiled into JS you can run the JS file like any other JS file.  You will also get a TS config file, in where, you can specify lots of rules that can change how TS checks your TS files. When working in Jupyter Notebook with the TS kernel, you won't see this compilation step however it is happening in the background.\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"built\"></a>\n\n## Built-in Types"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "JavaScript has seven built-in types: <b>null</b> , <b>undefined</b> , <b>boolean</b> , <b>number</b> , <b>string</b> , <b>object</b> , and <b>symbol</b> \n\nYou should know these types already, except for symbol (don't worry about symbol)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"declare\"></a>\n\n### Declaring"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "When declaring a variable you can set its type explicitly by adding a `:` then the name of the class.\n\n<b>Note:</b> The types are lower cased, Number and number and Boolean and boolean are not the same and will cause issues"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let typeString: string\r\nlet obj: object\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Without a type annotation we can reassign `anyType` to any type of variable"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "obj = {id:'name', num:123}\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "{",
+                                "  id: \u001b[32m'name'\u001b[39m,",
+                                "  num: \u001b[33m123\u001b[39m",
+                                "}"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//Error"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                " //Error"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice1\"></a>\n\n## In-Class Exercise #1"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "In the cells provided declare 3 variables `iceString` of type string `iceNumber` of type number `iceBool` of type boolean\nThen on seperate line assign those variables values of an appropriate type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let iceString: string\r\nlet iceNumber: number\r\nlet iceBool: boolean\r\n\r\n\r\niceString = 'Avatar live action i smid'\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'Avatar live action i smid'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"itype\"></a>\n\n## Implicit Type Declaration"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "When you declare and intialize a variable with TypeScript, it will implicitly add the type declaration for you"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The above example shows the `implicitlyTypedArray` was not declared to as an array (of strings) but TypeScript implicitly typed it based on the initial state of  `[\"Na na na na\", \"na na na na\",\"hey hey\", \"Goodbye\"]`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"array\"></a>\n\n## Array typing"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Arrays in TS need to be type set to an array, but not just and array, and arrays must declare the datatype of its member elements.  To do this we add the datatype of the elements in the array followed by `[]`.  Typically we only put the same datatype in an array."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice2\"></a>\n\n## In-Class Exercise #2"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create an array of nulls using explicit type checking called `arrayOfNulls`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\nlet arrayOfNulls: null[]\r\narrayOfNulls = [null,null]\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  \u001b[1mnull\u001b[22m,",
+                                "  \u001b[1mnull\u001b[22m",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Multiple Datatypes in Array"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We usually avoid putting multiple data types in an array if there is more than 2 elements because it gets hard to read and use.  If we want to do this we put inside bracket we state the datatype for each index of the array like so\n\n`let myVar:[datatypeOfIndex0, datatypeOfIndex1, datatypeOfIndex2, datatypeOfIndex3, ..ect]`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let multipleTypeArray: [number, string, boolean, null]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "multipleTypeArray = [5, 'omar', false, null]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  \u001b[33m5\u001b[39m,",
+                                "  \u001b[32m'omar'\u001b[39m,",
+                                "  \u001b[33mfalse\u001b[39m,",
+                                "  \u001b[1mnull\u001b[22m",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The Order of the elements is critical"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Multiple elements of unknown Length"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "What if the array's first element is a string and then we have an unknown about of numbers?\n\nWe will use the spread operator to say the second member of the array is an unpacked number array"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let myStr: [number, ...string[]]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "myStr = [12,'omar','jana','aly','kusay']"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "[",
+                                "  \u001b[33m12\u001b[39m,",
+                                "  \u001b[32m'omar'\u001b[39m,",
+                                "  \u001b[32m'jana'\u001b[39m,",
+                                "  \u001b[32m'aly'\u001b[39m,",
+                                "  \u001b[32m'kusay'\u001b[39m",
+                                "]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<strong>Note:</strong> This style means there could also be nothing in our unpacked number array, so the second index becomes optional"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice3\"></a>\n\n## In-Class Exercise #3"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create an array that starts with one string and then can hold any number of booleans and name it `stringBoolsArray` and assign it some values"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let stringBoolsArray: [string, ...boolean[]]\r\n\r\nstringBoolsArray = ['omar', false, true]\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"func\"></a>\n\n## TS and Intellisense, and Functions"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Typescript helps you with itellisense.  In Jupyter notebook you can press tab after writing a dot to see the available methods.  This only works if the itellisense can determine what the datatype of the variable is.  Typescript introduces static typing to JS, so when using proper TS techniques the itellisense will know the type of data being past.\n\nConsider the examples below.  The first example is without static type checking.  note when you type `name.` and press `tab` you get no suggestions; This tells you that the compiler does not know the type of the name variable.\n\nLooking at the second example we annotate the name parameter to be of type string, now when you press tab after the `name.` you will see a list of availible string methods and properties.\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"return\"></a>\n\n## Declaring a Return Type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Now lets use the returned string with and without return type annonations."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Using the same example we will see that the compiler knows the data type of name, once again we can easily verify this my trying the tab key."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The compiler knows this is a string because we passed in a string and didn't do anything that may change its data type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Let's try to confuse the compilier by adding an integer to our string.  This will cause the compiler not to know what the data type of our return is, once again we can test by press tab after the dot"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Explicit Return Type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Lets annotate the return type of this function, we will see now the compiler and our itellisense knows the return of the function is a string\n\nTo annotate a return type on a regular function it looks like:\n```\nfunction funcName(params):ReturnType{}\n```"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice4\"></a>\n\n## In-Class Exercise #4"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a regular function that takes in two numbers and returns a string that says.\n```[firstnumber] plus [secondNumber] equals [FirstNumber plus SecondNumber]```\n\nName the function `iceAddition`\n\nif we run `iceAddition(2,5)`\n\nthe output should be :\n\n```\n\"2 plus 5 equals 7\"\n```\n\nUse Explicit type checking on the parameters and return type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "function iceAddition(num1:number, num2:number):string{\r\n    return `${num1} plus ${num2} equals ${num1+num2}`\r\n}\r\n\r\n\r\niceAddition(2,5)\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "undefined",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"arrow\"></a>\n\n## Arrow Functions"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "To annotate a return type on an arrow function it looks like:\n```\nconst funcName=(params):ReturnType=>{}\n```"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice5\"></a>\n\n## In-Class Exercise #5"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create an Arrow function that takes in two numbers and returns a string that says.\n```[firstnumber] plus [secondNumber] equals [FirstNumber plus SecondNumber]```\n\nName the function `iceAdditionArrow`\n\nif we run `iceAdditionArrow(2,5)`\n\nthe output should be :\n\n```\n\"2 plus 5 equals 7\"\n```\n\nUse Explicit type checking on the parameters and return type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"void\"></a>\n\n### Void Type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Often our function return nothing, for this we can use the void type.  The term void to represent function without returns is ubiquitous in all languages.\n\nNote: returning `null` or `undefined` statisfies void "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice6\"></a>\n\n## In-Class Exercise #6"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create an arrow function that is named `iceVoid` and have that function print:\n\n`If I have a void I have nothing`\n\nBe sure to explicity type the function's return"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"tstypes\"></a>\n\n## TypeScript Built in Types"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We have already mentioned JavaScript has seven built-in types: <b>null</b> , <b>undefined</b> , <b>boolean</b> , <b>number</b> , <b>string</b> , <b>object</b> , and <b>symbol</b> \n\nTypeScript adds to these types with: <b>unknown</b>, <b>any</b>, <b>tuple</b>, <b>enum</b>,<b> never</b> and more.\n\nReference: [https://www.typescriptlang.org/docs/handbook/2/everyday-types.html]('https://www.typescriptlang.org/docs/handbook/2/everyday-types.html')"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"any\"></a>\n\n### any type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The any type means that the data can belong to any datatype.  Be very careful when using this datatype; it should be avoided at all costs.  Using the any type, may make your code easier to write, but you will lose all benefits of TypeScript.\n\nWhen you don't explicitly declare a type to a variable TS will implicitly assign it to any."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice7\"></a>\n\n## In-Class Exercise #7"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "In the cell below write `I will not use the any type unless absolutely necessary`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"tuples\"></a>\n\n### Tuples"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "A Tuple is a fixed length array where each element has a particular type.\nThese are generally used for arrays with only 2 pieces of information, as they quickly become hard to read and manage."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//Error\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//Error\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### ⚠️WARNING⚠️"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "TypeScript isn't perfect when working with tuples and the push method will work, but this goes against the TS principlas and should never be done."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// this works but shouldn't!!!\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice8\"></a>\n\n## In-Class Exercise #8"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create an appropriate tuple named `iceTuple` that contains the values `true` `undefined`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"enum\"></a>\n\n### Enum Type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Enums are used when there are highly related constants.\n\nTo create an enum we use the syntax\n\n`enum NameOfEnum {key, key, key}`\n\n<b>Note: </b> Notice there is no equal sign\n\nEnums should be named using PascalCase\n\nBy default each member of the enums value will be the index position of that value (starts at 0)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We can start at a different number other than 0 by setting a number on the first element.  The following elements value with be incremented by one"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Explicitly setting enum values"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We can explicitly set the enum values to other types, but when we do this we must assign every single element a value. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice9\"></a>\n\n## In-Class Exercise #9"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create an enum type to represent The different football teams that can be on the field.\n\n`offense` `defense` and `specialTeams`\n\nThey should be represented by `O`,`D`, and `ST` respectively\n\nname the enum `IceEnum`\n\nuse the Ice Enum to print `ST O D`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "enum IceEnum {offense='O', Defense='D',SpecialTeams='ST'}\r\nconsole.log(IceEnum.Defense)\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "D",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"unknown\"></a>\n\n### Unknown Type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The Unknown type is similar to the any type, but it will enforce type checking.  In order to use an Unknown type we must use a Type Guard to perform narrowing."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### With any"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We see here no compilation error, yet the person parameter has no guarentee it has the abilities to walk and talk"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### With Unknown"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The person parameter is now annotated as unknown and we see we get a compilation error when trying to use this code"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"guard\"></a>\n\n#### Type Narrowing"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "To be able to use the unknown type we must first create our <b>Type Guard</b>.  This will narrow down the datatype so you can perform approiate actions.\n\n<strong>Note: </strong> This also allows the itellisense to kick in and give suggestions"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice10\"></a>\n\n## In-Class Exercise #10"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a function that uses an unknown type parameter and implement a type guard.\n\n- If the parameter is a number we want the function to return the number sqaured\n\n- If the parameter is a string we want the function to return the string in uppercase letters\n\n- If the parameter is a boolean we want the function to return \"Its on\" if the boolean is true and \"Its off\" if the boolean is false\n\n- If the parameter is of any other type just return the parameter\n\nName the function `iceGuard`\n\nTest your function for all 4 use cases"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "function iceGuard(value: unknown){\r\n    if(typeof value === 'number'){\r\n        return value * value;\r\n    }else if (typeof value === 'string'){\r\n        return value.toUpperCase();\r\n    }else if (typeof value === 'boolean'){\r\n        return value ? 'Its on':'Its off';\r\n    }else{\r\n        value\r\n    }\r\n}\r\n\r\n\r\niceGuard(5)"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m25\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"never\"></a>\n\n## Never Type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "This is a rarely used Type, and generally used as a return type from a function.\n\nThe never type is used to denote that a function never returns.  This means the function runs infintely, like a web server.\n\nI recommend not invoking (calling) the `myNeverFunction` as it is an in\nfinite loop and may crash your notebook.  The example is to show you the use of `never`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"obj\"></a>\n\n# Objects and TS"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Object are a built-in type from JS, but working with them in TS can be a little different we will go over a few ways to work with Objects in TS."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "When declaring an Object TS will implictly force your object to maintain its \"shape\".  This means you can not dynamically add properties to your objects like you can in JS, and when you change a property is has to have the correct datatype.\n\nWhen we talk about the \"shape\" of an object we are talking about is keys, types, and methods."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// let student1 = {name:'1'}\r\n// student1.name = 'omar'\r\n// console.log(student1.name)\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "omar",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//error"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice11\"></a>\n\n## In-Class Exercise #11"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Define the shape and the values for an object name `iceMan`\n\nIce man should have:\n\n- a id that is a number\n\n- a name that is a string\n\n- a wasFrozen property that is a boolean on whether or not our iceMan was ever frozen in time"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let iceMan : {id: number , name: string, wasFrozen: boolean} = {id:5, name:'omar', wasFrozen:true}\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"type\"></a>\n\n## Type Aliases"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The above way to work with objects is a bit cumbersome.  There is an easier way using a type alias, which allows you to predefine the shape and reuse this shape.\n\nThe type's name should be written in PascalCase"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice12\"></a>\n\n## In-Class Exercise #12"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Define the type for an our iceMan we made in the last example and name the type `IceManType`  Then create 3 iceMen called `iceMan1` `iceman2` and `iceMan3`.\n\nIce man should have:\n\n- a id that is a number\n\n- a name that is a string\n\n- a wasFrozen property that is a boolean on whether or not our iceMan was ever frozen in time"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"readonly\"></a>\n\n#### readonly"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Sometime there are properties of an object that should never change, for instance an id should never be changed.  This rule can be enforced with the `readonly` keyword"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"opt\"></a>\n\n#### Optional fields"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Sometime you also have fields that should be optional, and not required to add in, like a Fax Number or Address Line 2.  This can be denoted using the `?`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"objmeth\"></a>\n\n#### methods"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Types can also include methods that should be implemented."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice13\"></a>\n\n## In-Class Exercise #13"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a type `IceShoeType` and 1 member of this type `iceShoe`\n\nall IceProducts must meet the following requirements\n\n- has readonly id field\n- has size (i.e. 7, 8, 11)\n- has a name\n- has an Optional value to describe if is the product has a wide version\n- has a description"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"union\"></a>\n\n### Union Types"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We can assign a variable multiple types, instead of just one.  This is great when the value could have multiple datatype.   This is done with the union operator `|` which is the pipe key"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Union Types with Function"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We using a union type for parameters, one must enable a <b>type guard</b>"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice14\"></a>\n\n## In-Class Exercise #14"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a function that takes one parameter that can be either a boolean or a string.  Using a type guard have the function return back the boolean or have it return true/false if the string starts with a `\"c\" or \"C\"`\n\nBe sure to use type annonations to enforce your parameter types and the functions return type\n\nName the function `ice13`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"as\"></a>\n\n### As Keyword"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The `as` keyword tells Typescript to treat a variable like its a member of a certain type.\n\nYou can solve many problems using `as any`, but this is considered bad practice and should be avoided"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"intersec\"></a>\n\n### Intersection Types"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We can make new types by combining old types using an intersection and the `&`\n\n<b>Note: </b> Two types can be combined if they don't share a common key with different type.  So that means both types can have an id field as long as the id field is defined as the same type (say number) in both original classes"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice15\"></a>\n\n## In-Class Exercise #15"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create two types and then create a 3rd type from those first two type.\n\nIceUser:\n\n- firstName\n- lastName\n- age\n\nIceCustomer:\n- cart (array of strings)\n- address (string)\n\n\nIceComplete:\n- Combination of IceCustomer and IceUser\n\nAlso Create an IceComplete Object named `icedOver`\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"literal\"></a>\n\n### Literal Types"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "A Literal type works kind of like an enum type.  You can set the possible values are variable takes by assigning it a value and chaining all posible values with the `|`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "// This is useless\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "We can even define the options as its own type."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"ice16\"></a>\n\n## In-Class Exercise #16"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a Literal type that restricts its values to the 6 main characters from friends.  Ross, Rachel, Joey, Chandler, Pheobe, Monica\n\nUse that type to create a variable for Rachel"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"nnao\"></a>\n\n### Non-null assertion operator"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "The non-null assertion operator is used to postfix variables to tell TypeScript that the variable can not be null even thought TypeScript may think that it could be null.  Good practice states this should not be used when the variable could actually be null, and only when TypeScript can't infer that the null type has been ruled out\n\n\nTypeScript has a .tsconfig file (uneditabled in this jupyter notebook) that allows use to turn some of the TypeScript rules on or off (more on this later).  For the following example we want strictNullChecks option turned on (set to true)  This can not be done in this notebook, so check out this example of TypeScript Playground:\n\nhttps://www.typescriptlang.org/play?&install-plugin=@structured-types/playground-plugin#code/PTAqAsFMAIBcGcDGB7AdgMwJYHNrgIbzTySyyaq4BE8sATporAHICuANuwMJSIDW8KgC44dVpAA0AKBlT0rVE0xpoAN3ztMAE3yxIAZXKUAFDtj4A-CNoNKAHwVbIWVJC13UHdgEpoAbyloIOgQaB5IfgpcWGRiSBhYKGgzfGhMIk9OaGQ6aEdnCjdA4Mx0aFNdVIBeGuhM9mg7O2TK6BqqvNQnFzdvAOCBuHA6ZAB3OshxgFE6EbpjAHIYRHxUVGRYaAAjGHqF72KggF9i4pOg+UVyFQAHEcRIeHgp1HJYAE8K8ytieiiHLoFVzueq+frBdSaMwGIzYL74A4DUIpaArVATVSQXL4JisDTsd7bXZebK5fI9LRBQ4hYBElasEhDGB3SCqAB00EuShUo2QHEpMzm2VYsFOSLA7xuBkQDBum3SnXwW3YCViFHQWKGuha5lRqzqGyJdRJOU63UKlOpoXgsVGMBIMFSKAAtjdMOxdMp0Vi5mLgirNkQOik2TEADJjLFcQiQYy+P1W2mgWJYAAeQwVdryjMSuzQAFp6tBCCQ6Nd0cgpXRdDlE9AA8Q2jr8ABCUPICN2ujRkhxhPHYp3ZAPJ4vN6fbxAA\n\n\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "<a id=\"hw\"></a>\n\n# Homework"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Question #1"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a type to represent the following instances of `CTStudent` Also declare three 3 students below as type `CTStudent` and set their values\n\n```\nlet student1 = {\n    id: 'GMK435&g62L00',\n    name: 'John Smith',\n    age: 24,\n    isTired: true,\n    projectsCompleted:[\"HTML Portfolio\", \"Fakebook\", \"Pokemon API Project\", \"Weather Bug\"],\n    pet: 'dog'\n}\n\nlet student2= {\n    id: '6KGS%54GmlY76',\n    name: 'Jenny Hawthorne',\n    age: 28,\n    isTired: false,\n    projectsCompleted:[\"HTML Portfolio\"],\n}\n\nlet student3 = {\n    id: '6KGS%54GmlY76',\n    name: 'Neo',\n    age: 57,\n    isTired: true,\n    projectsCompleted:[\"Matrix\",\"Biological Interface Program\"],\n    pet:'cat'\n}\n```"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//Answer\r\ntype CTStudent = {\r\n    readonly id: string,\r\n    name: string,\r\n    age:number,\r\n    isTired:boolean,\r\n    projectsCompleted: string[],\r\n    pet:string\r\n}\r\n\r\nlet student1: CTStudent = {\r\n    id: 'GMK435&g62L00',\r\n    name: 'John Smith',\r\n    age: 24,\r\n    isTired: true,\r\n    projectsCompleted:[\"HTML Portfolio\", \"Fakebook\", \"Pokemon API Project\", \"Weather Bug\"],\r\n    pet: 'dog'\r\n}\r\n\r\nlet student2: CTStudent = {\r\n    id: '6KGS%54GmlY76',\r\n    name: 'Jenny Hawthorne',\r\n    age: 28,\r\n    isTired: false,\r\n    projectsCompleted:[\"HTML Portfolio\"],\r\n    pet: 'cat'\r\n}\r\n\r\n\r\nlet student3: CTStudent = {\r\n    id: '6KGS%54GmlY76',\r\n    name: 'Neo',\r\n    age: 57,\r\n    isTired: true,\r\n    projectsCompleted:[\"Matrix\",\"Biological Interface Program\"],\r\n    pet:'cat'\r\n}\r\n\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Question #2"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Write a function that will accept a an object of type `Fruit`, the object of type Fruit could also be `null`.  If their is a Fruit print the color of the fruit, otherwise print `You ate my fruit already` be sure to annoate the return type of the function"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//Given\r\ntype Fruit={\r\n    color:string,\r\n    shape:string\r\n}\r\n\r\nlet apple:Fruit={color:\"red\", shape:\"sphere\"}\r\nlet eaten:Fruit=null\r\n\r\nfunction mainfruit(fruit:Fruit): string | null{\r\n    if (fruit){\r\n        return fruit.color ;\r\n    }else{\r\n        return 'You ate my fruit already';\r\n    }\r\n}\r\n\r\n\r\n// console.log(mainfruit(apple))\r\n// console.log(mainfruit(eaten))"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "red",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Question #3"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a Union Type named `Ebook` for `Book` and `DigitalBook` and create one instance of the new union type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "//Given \r\ntype Book={\r\n    isbn:string,\r\n    title:string,\r\n    author:string\r\n}\r\n\r\ntype DigitalBook={\r\n    fileType:string,\r\n}\r\n\r\ntype Ebook = Book&DigitalBook\r\n\r\nlet book1: Ebook = {\r\n    isbn:'hello world',\r\n    title:\"book1\",\r\n    author:\"grrm\",\r\n    fileType:'kejqb'\r\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "#### Question #4"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Create a Type to represent a `ShopItem` that will fit the following rules. You may need to create additional structures\n\n- All ShopItems have an numeric id that can not be edited \n- All ShopItems have a price\n- All ShopItems have a description\n- Some ShopItems have a color\n- All ShopItems have a Category represented with an enum \n    - Possible Categories are `Shirts` `Shoes` `Pants` `Hats`\n- All ShopItems have a list of keywords used to help search for the ShopItem \n    - For Example A Ironman Tshirt may have keywords = [\"Marvel\", \"Endgame\", \"Ironman\",\"Character Tees\", \"Tony Stark\"]\n\nAfter Creating the `ShopItem` type create 3 items using this type"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "enum Shop {\r\n    Small = 'small',\r\n    Medium = 'medium',\r\n    Large = 'large'\r\n}\r\n\r\ntype ShopItem = {\r\n    readonly id:number,\r\n    price:number,\r\n    description: string,\r\n    color?:string,\r\n    keywords?:string[]\r\n}\r\n\r\nconst shoe: ShopItem = {\r\n    id: 1,\r\n    price: 20,\r\n    description: \"Nike air max\",\r\n    color:'black',\r\n    keywords: ['Nike', 'Air', 'Max']\r\n}\r\n\r\nconst tshirt: ShopItem= {\r\n    id: 2,\r\n    price: 10,\r\n    description: \"Batman Tshirt\",\r\n    color:'white',\r\n    keywords:['Dc', 'Bat', 'superhero']\r\n}\r\n\r\nconst pants: ShopItem= {\r\n    id: 3,\r\n    price: 40,\r\n    description: \"Jeans\"\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+            ],
+            "outputs": []
+        }
+    ]
+}
